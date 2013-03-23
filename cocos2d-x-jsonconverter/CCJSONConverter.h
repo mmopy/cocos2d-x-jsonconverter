@@ -9,30 +9,23 @@
 #ifndef __cocos2d_x_jc__CCJSONConverter__
 #define __cocos2d_x_jc__CCJSONConverter__
 
-#include "cJSON.h"
 #include "CCJSONData.h"
 
-class CCJSONConverter : public CCObject {
-    
+namespace cocos2d {
+
+class CCJSONConverter : public CCObject
+{
 public:
-    static CCJSONConverter * sharedConverter();
-    
-    char * strFrom(CCDictionary * dictionary);
-    
-    CCDictionary * dictionaryFrom(const char * str);
-    
-private:
-    void convertJsonToDictionary(cJSON *json, CCDictionary *dictionary);
-    
-    void convertDictionaryToJson(CCDictionary *dictionary, cJSON *json);
-    
-    void convertJsonToArray(cJSON * json, CCArray * array);
-    
-    void convertArrayToJson(CCArray * array, cJSON * json);
-    
-    cJSON * getObjJson(CCObject * obj);
-    
-    CCObject * getJsonObj(cJSON * json);
+    /// Creates unformatted JSON string (it better for network operations)
+    static CCString *getJSON(CCDictionary *dictionary);
+
+    /// Creates human-readable (formatted) representation
+    static CCString *getFormattedJSON(CCDictionary *dictionary);
+
+    /// Restores CCDictionary from JSON-string
+    static CCDictionary *getDictionary(const char *str);
 };
+
+} // namespace cocos2d
 
 #endif /* defined(__cocos2d_x_jc__CCJSONConverter__) */
